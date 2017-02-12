@@ -5,7 +5,8 @@
   "main": "src/serverIndex.js",
   "private": true,
   "scripts": {
-    "start": "babel-node ./src/serverIndex.js"
+    "start": "babel-node ./src/serverIndex.js",
+    "lint": "eslint src/" 
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,13 @@
     "babel-preset-es2017": "^6.22.0",
     "express": "^4.14.1",
     "linebot": "^1.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0"
   }
 }
