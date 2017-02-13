@@ -5,10 +5,10 @@
 把環境變數設定到機器上
 
 ```shell
-export LINE_CHANNEL_SECRET=0f65b655xxxxxxabf6c
-export LINE_CHANNEL_TOKEN=KlXdEn5+sFt3aF1pRdxxxxxxyGoRh+8N9xdHCImK03x2n2vxoQ3J9OIthrSqYNF4BqIvNdhW3XkiGwdB04t89/1O/w1cDnyilFU=
-export LINE_CHANNEL_ID=1495270559
-export MONGODB_URI=mongodb://heroku_v9xxxx51t9gj:j9g1l1xxxxxp84lj4oi69gpos5r35pq@ds13xxxx9899.mlab.com:39899/heroku_v951t9gj
+export LINE_CHANNEL_SECRET="0f65b655xxxxxxabf6c"
+export LINE_CHANNEL_TOKEN="KlXdEn5+sFt3aF1pRdxxxxxxyGoRh+8N9xdHCImK03x2n2vxoQ3J9OIthrSqYNF4BqIvNdhW3XkiGwdB04t89/1O/w1cDnyilFU="
+export LINE_CHANNEL_ID="1495270559"
+export MONGODB_URI="mongodb://localhost/linebot"
 ```
 
 然後輸入以下指令啟動 server
