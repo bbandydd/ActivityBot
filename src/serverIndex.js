@@ -1,8 +1,16 @@
 const path = require('path');
 const linebot = require('linebot');
 const express = require('express');
-
+const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
+
+// check env
+try {
+  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL']);
+} catch (e) {
+  console.log('缺少環境變數', e);
+  process.exit();
+}
 
 // use express to handle line bot.
 const app = express();
