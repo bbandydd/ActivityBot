@@ -42,7 +42,7 @@ bot.on('message', getMessage);
 // bot.on('beacon', function (event) { });
 
 // static web
-app.use('/', express.static(path.join(path.resolve(), '/public')));
+app.use('/', express.static(`${__dirname}/public`));
 
 // generate line bot middleware to express server
 const linebotParser = bot.parser();
