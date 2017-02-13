@@ -55,4 +55,7 @@ npm start
     ├── public (未來網頁放置的地方)
     │   └── index.html
     └── serverIndex.js (server主程式)
+    └── service
+        └── luis.js (串接luis api 功能實做)
+
 ```
