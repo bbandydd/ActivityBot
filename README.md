@@ -59,3 +59,11 @@ npm start
         └── luis.js (串接luis api 功能實做)
 
 ```
+
+----
+
+# 維持好的程式碼品質
+
+每次寫完程式以後可以輸入 `npm run lint` 來看哪邊寫的不好
+![](http://i.imgur.com/7ZP3eys.png)
+
