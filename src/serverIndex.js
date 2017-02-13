@@ -2,6 +2,8 @@ const path = require('path');
 const linebot = require('linebot');
 const express = require('express');
 
+const luis = require('./service/luis.js');
+
 // use express to handle line bot.
 const app = express();
 
@@ -12,10 +14,16 @@ const bot = linebot({
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
-bot.on('message', (event) => {
-  event.reply('get message success');
-  console.log('event');
-});
+async function getMessage(event) {
+  try {
+    const result = await luis.getIntent(event.message.text);
+    event.reply(`意圖：${result.topScoringIntent.intent} 機率： ${result.topScoringIntent.score}`);
+  } catch (e) {
+    console.log('error');
+  }
+}
+
+bot.on('message', getMessage);
 
 // bot.on('message', function (event) { });
 // bot.on('follow', function (event) { });

@@ -9,6 +9,7 @@ export LINE_CHANNEL_SECRET="0f65b655xxxxxxabf6c"
 export LINE_CHANNEL_TOKEN="KlXdEn5+sFt3aF1pRdxxxxxxyGoRh+8N9xdHCImK03x2n2vxoQ3J9OIthrSqYNF4BqIvNdhW3XkiGwdB04t89/1O/w1cDnyilFU="
 export LINE_CHANNEL_ID="1495270559"
 export MONGODB_URI="mongodb://localhost/linebot"
+export LUIS_API_URL="https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/fba8ab1a-6a5c-4d01-9746-b7ede1712730?subscription-key=5f997f5dca334e9ebf60ec23bf6b4d87"
 ```
 
 然後輸入以下指令啟動 server
@@ -43,7 +44,10 @@ npm start
 # 檔案架構
 
 ```
+.
 ├── app.json
+├── LUIS
+│   └── app.json (LUIS 訓練資料)
 ├── package.json
 ├── Procfile (設定部屬到heroku以後要執行哪些指令)
 ├── README.md
