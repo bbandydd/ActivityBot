@@ -1,0 +1,278 @@
+{
+  "luis_schema_version": "1.3.1",
+  "versionId": "0.1",
+  "name": "鹽埕埔破風隊",
+  "desc": "報名小助手",
+  "culture": "zh-cn",
+  "intents": [
+    {
+      "name": "createActivity"
+    },
+    {
+      "name": "joinActivity"
+    },
+    {
+      "name": "listUsers"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "registeredPresident"
+    }
+  ],
+  "entities": [
+    {
+      "name": "activityTime",
+      "children": [
+        "activityStartTime",
+        "activityEndTime"
+      ]
+    },
+    {
+      "name": "location"
+    }
+  ],
+  "composites": [],
+  "closedLists": [],
+  "bing_entities": [
+    "datetime",
+    "number"
+  ],
+  "actions": [],
+  "model_features": [],
+  "regex_features": [],
+  "utterances": [
+    {
+      "text": "我想成為社長",
+      "intent": "registeredPresident",
+      "entities": []
+    },
+    {
+      "text": "社長就是我",
+      "intent": "registeredPresident",
+      "entities": []
+    },
+    {
+      "text": "我要註冊社長",
+      "intent": "registeredPresident",
+      "entities": []
+    },
+    {
+      "text": "我是社長",
+      "intent": "registeredPresident",
+      "entities": []
+    },
+    {
+      "text": "建立活動，星期三18:00，地點在鼓岩國小",
+      "intent": "createActivity",
+      "entities": []
+    },
+    {
+      "text": "舉辦活動，2/12 18:00 ~ 20:00 在鼓岩國小",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 8,
+          "endPos": 10
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 12,
+          "endPos": 14
+        },
+        {
+          "entity": "location",
+          "startPos": 16,
+          "endPos": 19
+        }
+      ]
+    },
+    {
+      "text": "星期三在鼓岩國小舉辦羽球活動，時間 18:00~20:00",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 17,
+          "endPos": 19
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 21,
+          "endPos": 23
+        },
+        {
+          "entity": "location",
+          "startPos": 4,
+          "endPos": 7
+        }
+      ]
+    },
+    {
+      "text": "星期三有羽球活動在鼓岩國小時間是18:00~19:00",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 16,
+          "endPos": 18
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 20,
+          "endPos": 22
+        },
+        {
+          "entity": "location",
+          "startPos": 9,
+          "endPos": 12
+        }
+      ]
+    },
+    {
+      "text": "2/13 舉辦活動時間 12:20 - 15:00 地點 捷運站",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 9,
+          "endPos": 11
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 13,
+          "endPos": 15
+        },
+        {
+          "entity": "location",
+          "startPos": 18,
+          "endPos": 20
+        }
+      ]
+    },
+    {
+      "text": "2017-02-11 建立活動，時間: 11:00 ~ 22:00 地點: 美術館",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 13,
+          "endPos": 15
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 17,
+          "endPos": 19
+        },
+        {
+          "entity": "location",
+          "startPos": 23,
+          "endPos": 25
+        }
+      ]
+    },
+    {
+      "text": "10/13 建立羽球活動地點在東尼與球場 18:00 ~ 20:00",
+      "intent": "createActivity",
+      "entities": [
+        {
+          "entity": "activityTime::activityStartTime",
+          "startPos": 17,
+          "endPos": 19
+        },
+        {
+          "entity": "activityTime::activityEndTime",
+          "startPos": 21,
+          "endPos": 23
+        },
+        {
+          "entity": "location",
+          "startPos": 12,
+          "endPos": 16
+        }
+      ]
+    },
+    {
+      "text": "10人參加",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "一人參加",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "我也要打",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "+1",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "++",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "我這邊兩個人參加",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "我加入",
+      "intent": "joinActivity",
+      "entities": []
+    },
+    {
+      "text": "列出星期三羽球活動的人",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "上次活動有人參加",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "我想查詢誰有報名明天打羽毛球",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "明天誰要打羽毛球",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "2/17有誰參加",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "列出參加的人",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "給我名單列表",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "請列出有誰後天要打球",
+      "intent": "listUsers",
+      "entities": []
+    },
+    {
+      "text": "禮拜天有誰要打球",
+      "intent": "listUsers",
+      "entities": []
+    }
+  ]
+}
