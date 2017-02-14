@@ -67,3 +67,31 @@ npm start
 每次寫完程式以後可以輸入 `npm run lint` 來看哪邊寫的不好
 ![](http://i.imgur.com/7ZP3eys.png)
 
+# LUIS intent 以及 entity 解說
+
+### intent
+
+1. registeredPresident (註冊社長)
+2. createActivity (社長建立活動)
+3. joinActivity (社員加入活動)
+4. leaveActivity (社員活動請假)
+5. listUsers (列出活動對象)
+
+### entity
+
+1. location (活動進行的地點)
+2. activityTime(活動進行的時間)
+ - activityStartTime (活動開始時間)
+ - activityEndTime (活動結束時間)
+
+### 範例
+
+```
+星期三建立活動時間18:00~20:00地點大魯格草衙道
+
+intent: createActivity
+entity:
+    location: 大魯格草衙道
+    activityStartTime: 18:00
+    activityEndTime: 20:00
+```
