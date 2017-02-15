@@ -3,7 +3,7 @@ const linebot = require('linebot');
 const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
-const modules = require('./modules/index.js');
+const intentHandlers = require('./modules/index.js');
 
 // check env
 try {
@@ -23,40 +23,10 @@ const bot = linebot({
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
-global.entityModel = {
-  location: '',
-  'activityTime::activityStartTime': '',
-  'activityTime::activityEndTime': '',
-};
-
-const setEntity = (entities) => {
-  entities.forEach((entity) => {
-    if (Object.keys(global.entityModel).indexOf(entity.type) !== -1) {
-      global.entityModel[entity.type] = entity.entity;
-    }
-  });
-};
-
-const operation = {
-  createActivity: (event, result) => modules.createActivity(event, result),
-  joinActivity: (event, result) => modules.joinActivity(event, result),
-  listUsers: (event, result) => modules.listUsers(event, result),
-  registeredPresident: (event, result) => modules.registeredPresident(event, result),
-  None: (event, result) => modules.None(event, result),
-};
-
 async function getMessage(event) {
   try {
     const result = await luis.getIntent(event.message.text);
-    const { topScoringIntent, entities } = result;
-    const op = operation[topScoringIntent.intent];
-
-    if (op) {
-      setEntity(entities);
-      op(event, result);
-    } else {
-      event.reply('請再描述一次，謝謝！');
-    }
+    intentHandlers[result.topScoringIntent.intent](event, result);
   } catch (e) {
     console.log('error', e);
   }
