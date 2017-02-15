@@ -67,6 +67,13 @@ ngrok http -bind-tls=true 0.0.0.0:8080
     ├── public (未來網頁放置的地方)
     │   └── index.html
     └── serverIndex.js (server主程式)
+    ├── modules (各intent模組程式碼)
+    │   └── index.js (統一匯出modules)
+    │   └── createActivity.js
+    │   └── joinActivity.js
+    │   └── listUsers.js
+    │   └── registeredPresident.js
+    │   └── None.js
     └── service
         └── luis.js (串接luis api 功能實做)
 
