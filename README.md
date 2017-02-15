@@ -18,6 +18,18 @@ npm install
 npm start
 ```
 
+在本機啟動server 開發的方式
+
+先安裝ngrok（安裝方法待捕上），安裝完成並執行上面指令後，接著執行下列指令
+
+```
+ngrok http -bind-tls=true 0.0.0.0:8080
+
+```
+
+會產生一組外部網路可連結的網址，將此網址填入line develop 中的webhook即可
+
+
 ### Heroku 部屬方式
 #### 安裝
 1. 安裝 heroku command line 並且登入 `heroku login`
