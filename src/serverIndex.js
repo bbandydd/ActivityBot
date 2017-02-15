@@ -29,6 +29,8 @@ global.entityModel = {
   'activityTime::activityEndTime': '',
 };
 
+global.preIntent = '';
+
 const setEntity = (entities) => {
   entities.forEach((entity) => {
     if (Object.keys(global.entityModel).indexOf(entity.type) !== -1) {
@@ -37,7 +39,7 @@ const setEntity = (entities) => {
   });
 };
 
-const operation = {
+global.operation = {
   createActivity: (event, result) => modules.createActivity(event, result),
   joinActivity: (event, result) => modules.joinActivity(event, result),
   listUsers: (event, result) => modules.listUsers(event, result),
@@ -49,7 +51,7 @@ async function getMessage(event) {
   try {
     const result = await luis.getIntent(event.message.text);
     const { topScoringIntent, entities } = result;
-    const op = operation[topScoringIntent.intent];
+    const op = global.operation[topScoringIntent.intent];
 
     if (op) {
       setEntity(entities);

@@ -1,5 +1,6 @@
 const createActivity = (event, result) => {
   console.log(result);
+  global.preIntent = 'createActivity';
   const entityModel = global.entityModel;
   if (!entityModel.location) {
     event.reply('請輸入地點！');
