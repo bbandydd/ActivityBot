@@ -2,17 +2,11 @@ const request = require('request-promise');
 
 const LUIS_API_URL = process.env.LUIS_API_URL;
 
-const entityParser = (entities) => {
-  const entityObject = {};
-  entities.forEach((entity) => {
-    if (entity.type === 'builtin.datetime.date') {
-      entityObject[entity.type] = entity.resolution.date;
-    } else {
-      entityObject[entity.type] = entity.entity;
-    }
-  });
-  return entityObject;
-};
+const entityParser = entities =>
+  entities.reduce((entityObject, entity) =>
+    (entity.type === 'builtin.datetime.date'
+      ? { ...entityObject, [entity.type]: entity.resolution.date }
+      : { ...entityObject, [entity.type]: entity.entity }), {});
 
 const getIntent = (message) => {
   const options = {
@@ -25,10 +19,10 @@ const getIntent = (message) => {
 
   return new Promise((resolve, reject) => {
     request(options).then((result) => {
-      const newResult = { ...result };
-      newResult.entityObject = entityParser(result.entities);
-      console.log(newResult)
-      resolve(newResult);
+      resolve({
+        ...result,
+        entityObject: entityParser(result.entities),
+      });
     }).catch((err) => {
       reject(err);
     });

@@ -1,8 +1,5 @@
-// 可能會拿到其他Intent需要的參數，執行前一個Intent動作
 const None = (event, result) => {
-  // if (global.preIntent) {
-  //   global.operation[global.preIntent](event, result);
-  // }
+  event.reply(`意圖：${result.topScoringIntent.intent} 機率： ${result.topScoringIntent.score}`);
 };
 
 module.exports = None;
