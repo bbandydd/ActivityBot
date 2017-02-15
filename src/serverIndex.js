@@ -28,7 +28,7 @@ async function getMessage(event) {
     const result = await luis.getIntent(event.message.text);
     intentHandlers[result.topScoringIntent.intent](event, result);
   } catch (e) {
-    console.log('error', e);
+    console.error('getMessage error', e);
   }
 }
 
