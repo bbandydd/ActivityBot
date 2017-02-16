@@ -37,6 +37,24 @@ npm run dev
 
 > 啟動後，nodemon 會去監控所有檔案，一旦有變更會自動重啟程式。
 
+### 開發
+#### 使用資料庫
+- 目前使用[nedb](https://github.com/louischatriot/nedb)
+- 以src/modules/None.js為例
+```
+function None(event, result) {
+    console.log(this.db); <-- 取得資料庫物件
+
+    var doc = { hello: 'world'};
+
+    this.db.insert(doc, function (err, newDoc) {   
+        // Callback is optional
+        // newDoc is the newly inserted document, including its _id
+        // newDoc has no key called notToBeSaved since its value was undefined
+    });
+}
+```
+
 ### Heroku 部屬方式
 #### 安裝
 1. 安裝 heroku command line 並且登入 `heroku login`
@@ -65,6 +83,9 @@ npm run dev
 ```
 .
 ├── app.json
+├── database (目前使用nedb)
+│   └── activities.db
+│   └── users.db
 ├── LUIS
 │   └── app.json (LUIS 訓練資料)
 ├── package.json
@@ -84,6 +105,8 @@ npm run dev
     │   └── None.js
     └── service
         └── luis.js (串接luis api 功能實做)
+        └── linebot.js (擴充連接資料庫功能)
+        └── database.js (宣告nedb)
 
 ```
 

@@ -1,6 +1,5 @@
 const LineBot = require('linebot');
-
-const database = 'this is database';
+const database = require('./database');
 
 class LineBotDB extends LineBot {
   constructor(options) {
