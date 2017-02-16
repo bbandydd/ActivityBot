@@ -29,6 +29,13 @@ ngrok http 5000
 
 會產生一組外部網路可連結的網址，將此網址填入line develop 中的webhook即可
 
+使用開發模式
+
+```
+npm run dev
+```
+
+> 啟動後，nodemon 會去監控所有檔案，一旦有變更會自動重啟程式。
 
 ### Heroku 部屬方式
 #### 安裝
