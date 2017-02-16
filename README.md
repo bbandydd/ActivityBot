@@ -23,7 +23,7 @@ npm start
 先安裝ngrok（安裝方法待捕上），安裝完成並執行上面指令後，接著執行下列指令
 
 ```
-ngrok http -bind-tls=true 0.0.0.0:8080
+ngrok http 5000
 
 ```
 

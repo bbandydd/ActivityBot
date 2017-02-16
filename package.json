@@ -5,7 +5,8 @@
   "main": "src/serverIndex.js",
   "private": true,
   "scripts": {
-    "start": "babel-node ./src/serverIndex.js",
+    "start": "babel-node ./src/serverIndex.js --watch",
+    "dev": "nodemon ./src/serverIndex.js --exec babel-node",
     "lint": "eslint src/"
   },
   "keywords": [],
@@ -29,6 +30,7 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.9.0"
+    "eslint-plugin-react": "^6.9.0",
+    "nodemon": "^1.11.0"
   }
 }
