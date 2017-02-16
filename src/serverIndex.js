@@ -1,5 +1,5 @@
 // const path = require('path');
-const linebot = require('linebot');
+const LineBot = require('./service/linebot');
 const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
@@ -17,16 +17,17 @@ try {
 const app = express();
 
 // generate bot
-const bot = linebot({
+const bot = new LineBot({
   channelId: process.env.LINE_CHANNEL_ID,
   channelSecret: process.env.LINE_CHANNEL_SECRET,
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
 async function getMessage(event) {
+  const that = this;
   try {
     const result = await luis.getIntent(event.message.text);
-    intentHandlers[result.topScoringIntent.intent](event, result);
+    intentHandlers[result.topScoringIntent.intent].call(that, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }
