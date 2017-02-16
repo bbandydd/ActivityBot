@@ -73,6 +73,7 @@ ngrok http -bind-tls=true 0.0.0.0:8080
     │   └── joinActivity.js
     │   └── listUsers.js
     │   └── registeredPresident.js
+    │   └── leaveActivity.js
     │   └── None.js
     └── service
         └── luis.js (串接luis api 功能實做)
