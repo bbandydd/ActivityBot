@@ -126,6 +126,7 @@ async function createActivity(event, result) {
         └── luis.js (串接luis api 功能實做)
         └── linebot.js (擴充連接資料庫功能)
         └── database.js (宣告nedb)
+        └── trashtalk.js (垃圾話專區)
 
 ```
 
