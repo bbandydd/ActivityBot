@@ -1,6 +1,10 @@
+const jieba = require('nodejieba');
+const trashtalk = require('../service/trashtalk.js');
+
 function None(event, result) {
-  console.log(this.db);
-  event.reply(`意圖：${result.topScoringIntent.intent} 機率： ${result.topScoringIntent.score}`);
+  const jiebaResult = jieba.cut(event.message.text); //.filter(x => x.length > 1); // 兩個字以上才去判斷
+  console.log(jiebaResult)
+  event.reply(trashtalk(jiebaResult));
 }
 
 module.exports = None;
