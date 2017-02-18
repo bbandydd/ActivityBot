@@ -23,20 +23,37 @@ const bot = new LineBot({
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
+async function saveChats(event, result) {
+  const { userId } = await event.source.profile();
+  const chats = {
+    userId,
+    intentJsonStr: JSON.stringify(result),
+  };
+  const { newDoc: userCount } = await this.db.count(this.db.users, { userId });
+  if (userCount === 0) {
+    const user = {
+      userId,
+      paymentRecord: [],
+      isPresident: false,
+    };
+    await this.db.insert(this.db.users, user);
+  }
+
+  await this.db.insert(this.db.chats, chats);
+}
+
 async function getMessage(event) {
   try {
     const result = await luis.getIntent(event.message.text);
-    const chats = {
-      userId: event.source.userId,
-      intentJsonStr: JSON.stringify(result),
-    };
-    await this.db.insert(this.db.chats, chats);
 
+    saveChats.call(this, event, result);
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }
 }
+
+
 
 bot.on('message', getMessage);
 
