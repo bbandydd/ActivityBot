@@ -24,12 +24,12 @@ const bot = new LineBot({
 });
 
 async function saveChats(event, result) {
-  const { userId } = event.source.userId;
+  const userId = event.source.userId;
   const chats = {
     userId,
     intentJsonStr: JSON.stringify(result),
   };
-  const { newDoc: userCount } = await this.db.users.count({ userId });
+  const userCount = await this.db.users.count({ userId });
   if (userCount === 0) {
     const user = {
       userId,
@@ -38,7 +38,6 @@ async function saveChats(event, result) {
     };
     await this.db.users.insert(user);
   }
-
   await this.db.chats.insert(chats);
 }
 
