@@ -7,7 +7,7 @@ const intentHandlers = require('./modules/index.js');
 
 // check env
 try {
-  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY']);
+  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY', 'BOT_NAME']);
 } catch (e) {
   console.log('缺少環境變數', e);
   process.exit();
