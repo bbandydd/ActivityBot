@@ -7,16 +7,22 @@ async function createActivity(event, luisResult) {
   } else if (!luisResult.entityObject['builtin.datetime.date']) {
     event.reply('請輸入日期！');
   } else {
-    const entity = {
-      location: luisResult.entityObject.location,
-      startTime: luisResult.entityObject['activityTime::activityStartTime'],
-      endTime: luisResult.entityObject['activityTime::activityEndTime'],
-      date: luisResult.entityObject['builtin.datetime.date'],
-      user: event.source.userId,
-      userList: [],
-    };
-    const response = await this.db.activities.insert(entity);
-    event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
+    const user = await this.db.users.findOne({ userId: event.source.userId });
+    if (user.isPresident) {
+      const entity = {
+        location: luisResult.entityObject.location,
+        startTime: luisResult.entityObject['activityTime::activityStartTime'],
+        endTime: luisResult.entityObject['activityTime::activityEndTime'],
+        date: luisResult.entityObject['builtin.datetime.date'],
+        user: user.userId,
+        userList: [],
+      };
+      const response = await this.db.activities.insert(entity);
+      event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
+    } else {
+      event.reply('只有社長可以建立活動喔！');
+    }
+    
   }
 }
 
