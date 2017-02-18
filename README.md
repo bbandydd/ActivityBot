@@ -21,11 +21,10 @@ npm start
 
 在本機啟動server 開發的方式
 
-先安裝ngrok（安裝方法待捕上），安裝完成並執行上面指令後，接著執行下列指令
+先安裝ngrok，安裝完成並執行上面指令後，接著執行下列指令
 
 ```
 ngrok http 5000
-
 ```
 
 會產生一組外部網路可連結的網址，將此網址填入line develop 中的webhook即可
@@ -112,6 +111,8 @@ db.chats
 
 每次寫完程式以後可以輸入 `npm run lint` 來看哪邊寫的不好
 ![](http://i.imgur.com/7ZP3eys.png)
+
+**補充說明：目前的npm run dev 有包含 npm run lint 的指令，必須通過lint測試才可以順利啟動server**
 
 # LUIS intent 以及 entity 解說
 

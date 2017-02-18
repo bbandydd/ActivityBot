@@ -44,15 +44,12 @@ async function saveChats(event, result) {
 async function getMessage(event) {
   try {
     const result = await luis.getIntent(event.message.text);
-
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
     saveChats.call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }
 }
-
-
 
 bot.on('message', getMessage);
 
