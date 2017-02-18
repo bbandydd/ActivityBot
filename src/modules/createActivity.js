@@ -12,7 +12,7 @@ async function createActivity(event, luisResult) {
       startTime: luisResult.entityObject['activityTime::activityStartTime'],
       endTime: luisResult.entityObject['activityTime::activityEndTime'],
       date: luisResult.entityObject['builtin.datetime.date'],
-      user: event.message.id,
+      user: event.source.userId,
     };
     const response = await this.db.insert(this.db.activities, entity);
     event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
