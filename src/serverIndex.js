@@ -24,30 +24,30 @@ const bot = new LineBot({
 });
 
 async function saveChats(event, result) {
-  const { userId } = await event.source.profile();
+  const { userId } = event.source.userId;
   const chats = {
     userId,
     intentJsonStr: JSON.stringify(result),
   };
-  const { newDoc: userCount } = await this.db.count(this.db.users, { userId });
+  const { newDoc: userCount } = await this.db.users.count({ userId });
   if (userCount === 0) {
     const user = {
       userId,
       paymentRecord: [],
       isPresident: false,
     };
-    await this.db.insert(this.db.users, user);
+    await this.db.users.insert(user);
   }
 
-  await this.db.insert(this.db.chats, chats);
+  await this.db.chats.insert(chats);
 }
 
 async function getMessage(event) {
   try {
     const result = await luis.getIntent(event.message.text);
 
-    saveChats.call(this, event, result);
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
+    saveChats.call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }

@@ -40,39 +40,14 @@ npm run dev
 
 ### 開發
 #### 使用資料庫
-- 目前使用[nedb](https://github.com/louischatriot/nedb)
+- 目前使用[nedb](https://github.com/louischatriot/nedb)。
+- 使用的連接套件為 nedb-promise，可直接使用async、await功能。
+
 #### 資料表
 ```
 db.users
 db.activities
-```
-#### db擴充方法，使用方式如下章節
-```
-db.insert
-db.find
-db.findOne
-db.count
-db.update
-db.remove
-```
-#### db使用方式，以src/modules/createActivity.js為例
-```
-[this.db]： 包含資料表及db擴充方法
-使用async、await取得response
-const response = await this.db.[方法]([資料表], [寫入值]);
-```
-```
-async function createActivity(event, result) {
-    const entity = {
-      location: luisResult.entityObject.location,
-      startTime: luisResult.entityObject['activityTime::activityStartTime'],
-      endTime: luisResult.entityObject['activityTime::activityEndTime'],
-      date: luisResult.entityObject['builtin.datetime.date'],
-      user: event.message.id,
-    };
-    const response = await this.db.insert(this.db.activities, entity);
-    event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
-}
+db.chats
 ```
 
 ### Heroku 部屬方式
