@@ -4,10 +4,13 @@ const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
+const EventEmitter = require('events').EventEmitter;
+
+const eventEmitter = new EventEmitter();
 
 // check env
 try {
-  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY']);
+  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY', 'BOT_NAME']);
 } catch (e) {
   console.log('缺少環境變數', e);
   process.exit();
@@ -51,7 +54,23 @@ async function getMessage(event) {
   }
 }
 
-bot.on('message', getMessage);
+async function callBot(event) {
+  const { source: { type } } = event;
+
+  if (type === 'user') {
+    eventEmitter.emit('bot_tigger', event);
+  } else {
+    const { message: { text } } = event;
+    const botName = process.env.BOT_NAME;
+
+    if (text.indexOf(botName) !== -1) {
+      eventEmitter.emit('bot_tigger', event);
+    }
+  }
+}
+
+bot.on('message', callBot);
+eventEmitter.on('bot_tigger', getMessage);
 
 // bot.on('message', function (event) { });
 // bot.on('follow', function (event) { });

@@ -10,6 +10,7 @@ export LINE_CHANNEL_TOKEN="KlXdEn5+sFt3aF1pRdxxxxxxyGoRh+8N9xdHCImK03x2n2vxoQ3J9
 export LINE_CHANNEL_ID="1495270559"
 export LUIS_API_URL="https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/fba8ab1a-6a5c-4d01-9746-b7ede1712730?subscription-key=5f997f5dca334e9ebf60ec23bf6b4d87"
 export PRESIDENT_KEY="GTR#673279834@@"
+export BOT_NAME="WiWi"
 ```
 > PRESIDENT_KEY 社長金鑰
 
@@ -36,6 +37,10 @@ npm run dev
 ```
 
 > 啟動後，nodemon 會去監控所有檔案，一旦有變更會自動重啟程式。
+
+### 呼叫機器人
+- 群組、聊天室這兩種多人對話方式，需呼叫機器人名字才會執行動作
+- 例如：WiWi，我要報名
 
 ### 開發
 #### 使用資料庫
@@ -80,6 +85,7 @@ db.chats
 ├── database (目前使用nedb)
 │   └── activities.db
 │   └── users.db
+│   └── chats.db
 ├── LUIS
 │   └── app.json (LUIS 訓練資料)
 ├── package.json
