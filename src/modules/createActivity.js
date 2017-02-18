@@ -22,7 +22,6 @@ async function createActivity(event, luisResult) {
     } else {
       event.reply('只有社長可以建立活動喔！');
     }
-    
   }
 }
 
