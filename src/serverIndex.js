@@ -24,10 +24,15 @@ const bot = new LineBot({
 });
 
 async function getMessage(event) {
-  const that = this;
   try {
     const result = await luis.getIntent(event.message.text);
-    intentHandlers[result.topScoringIntent.intent].call(that, event, result);
+    const chats = {
+      userId: event.source.userId,
+      intentJsonStr: JSON.stringify(result),
+    };
+    await this.db.insert(this.db.chats, chats);
+
+    intentHandlers[result.topScoringIntent.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }
@@ -41,7 +46,7 @@ bot.on('message', getMessage);
 
 // bot.on('leave', function (event) { });
 // bot.on('postback', function (event) { });
-// bot.on('beacon', function (event) { });
+// bot.on('beacon', function (event) { });x
 
 // static web
 app.use('/', express.static(`${__dirname}/public`));
