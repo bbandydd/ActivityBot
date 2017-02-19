@@ -46,8 +46,9 @@ async function getMessage(event) {
     MessageHandler.call(this, event);
   } else {
     const { message: { text } } = event;
-    const botName = process.env.BOT_NAME;
-    if (text.indexOf(botName) !== -1) {
+    const msg = text.toLowerCase();
+    const botName = process.env.BOT_NAME.toLowerCase();
+    if (msg.indexOf(botName) !== -1) {
       MessageHandler.call(this, event);
     }
   }
