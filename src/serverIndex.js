@@ -36,6 +36,10 @@ async function MessageHandler(event) {
 }
 
 async function getMessage(event) {
+  // if messge type not text, should not tick next process.
+  if (event.message.type !== 'text') {
+    return;
+  }
   // make condition when user cue the bot in group
   const { source: { type } } = event;
   if (type === 'user') {
