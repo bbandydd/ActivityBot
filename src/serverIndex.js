@@ -4,9 +4,7 @@ const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
-const EventEmitter = require('events').EventEmitter;
-
-const eventEmitter = new EventEmitter();
+const saveChats = require('./service/savechat.js');
 
 // check env
 try {
@@ -26,51 +24,33 @@ const bot = new LineBot({
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
-async function saveChats(event, result) {
-  const userId = event.source.userId;
-  const chats = {
-    userId,
-    intentJsonStr: JSON.stringify(result),
-  };
-  const userCount = await this.db.users.count({ userId });
-  if (userCount === 0) {
-    const user = {
-      userId,
-      paymentRecord: [],
-      isPresident: false,
-    };
-    await this.db.users.insert(user);
-  }
-  await this.db.chats.insert(chats);
-}
-
-async function getMessage(event) {
+async function MessageHandler(event) {
+  console.log('getMessage', this);
   try {
     const result = await luis.getIntent(event.message.text);
+    // save chat record first, then into intentHandler
+    saveChats(this.db, event, result);
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
-    saveChats.call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
   }
 }
 
-async function callBot(event) {
+async function getMessage(event) {
+  // make condition when user cue the bot in group
   const { source: { type } } = event;
-
   if (type === 'user') {
-    eventEmitter.emit('bot_tigger', event);
+    MessageHandler.call(this, event);
   } else {
     const { message: { text } } = event;
     const botName = process.env.BOT_NAME;
-
     if (text.indexOf(botName) !== -1) {
-      eventEmitter.emit('bot_tigger', event);
+      MessageHandler.call(this, event);
     }
   }
 }
 
-bot.on('message', callBot);
-eventEmitter.on('bot_tigger', getMessage);
+bot.on('message', getMessage);
 
 // bot.on('message', function (event) { });
 // bot.on('follow', function (event) { });
