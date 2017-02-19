@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 // Example: 明天在鼓岩國小舉辦羽球活動，時間 18:00~20:00
 async function createActivity(event, luisResult) {
   if (!luisResult.entityObject.location) {
@@ -16,6 +18,7 @@ async function createActivity(event, luisResult) {
         date: luisResult.entityObject['builtin.datetime.date'],
         user: user.userId,
         userList: [],
+        dueTime: Date.now() + moment.duration(1, 'days'),
       };
       const response = await this.db.activities.insert(entity);
       event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
