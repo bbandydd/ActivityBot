@@ -3,7 +3,8 @@ async function registeredPresident(event) {
 
   if (event.message.text.indexOf(presidentKey) > -1) {
     try {
-      await this.db.users.update({ userId: event.source.userId }, { isPresident: true }, {});
+      await this.db.users.update({ userId: event.source.userId }
+                                , { $set: { isPresident: true } }, {});
       event.reply('已經幫您註冊成為社長');
     } catch (e) {
       console.log('registeredPresident database error', e);

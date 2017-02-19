@@ -6,7 +6,10 @@
   "private": true,
   "scripts": {
     "start": "babel-node ./src/serverIndex.js --watch",
-    "dev": "nodemon ./src/serverIndex.js --exec babel-node",
+    "predev-eslint": "npm run lint",
+    "dev-eslint": "babel-node ./src/serverIndex.js",
+    "dev":  "nodemon --exec npm run dev-eslint", 
+    "dev-no-lint": "nodemon --exec babel-node ./src/serverIndex.js",
     "lint": "eslint src/"
   },
   "keywords": [],
