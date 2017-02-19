@@ -25,7 +25,6 @@ const bot = new LineBot({
 });
 
 async function MessageHandler(event) {
-  console.log('getMessage', this);
   try {
     const result = await luis.getIntent(event.message.text);
     // save chat record first, then into intentHandler
