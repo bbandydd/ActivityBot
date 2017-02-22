@@ -6,9 +6,9 @@ const trashtalk = {
   晚餐: '我想要吃火鍋！',
 };
 
-module.exports = (words) => {
-  const matchWords = words.filter(word => trashtalk[word]);
+module.exports = (word) => {
+  const matchWords = Object.keys(trashtalk).filter(x => word.indexOf(x) !== -1);
   const randomIdx = Math.floor(Math.random() * matchWords.length);
-  const matchWord = matchWords[randomIdx];
-  return matchWords.length > 0 ? trashtalk[matchWord] : '我不知道你在說什麼！';
+  const matchKey = matchWords[randomIdx];
+  return matchWords.length > 0 ? trashtalk[matchKey] : '我不知道你在說什麼！';
 };
