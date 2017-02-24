@@ -4,14 +4,14 @@ async function listUsers(event) {
       .sort({ dueDate: -1 })
       .limit(1)
       .exec();
-    const userIds = userList.map(({ userId }) => userId);
-    event.reply(`參加人數: ${userList.length}, 
-目前只有參加者的ID:${userIds.join(',')}
-(悄悄話:看可不可以加上姓名或是再去line api 查詢)`);
+
+    const userProfiles = userList.map(({ userId }) => this.getUserProfile(userId));
+    const userNames = (await Promise.all(userProfiles)).map(userObj => userObj.displayName);
+
+    event.reply(`參加人數: ${userList.length},\n參加名單:\n${userNames.join(',\n')}`);
     // event.reply(`意圖：${result.topScoringIntent.intent} 機率： ${result.topScoringIntent.score}`);
   } catch (e) {
     event.reply('錯誤了，說好的使用者名單呢...');
-    console.error('leace activity error', e);
     console.error('list users error', e);
   }
 }
