@@ -33,7 +33,7 @@ async function leaveActivity(event) {
     event.reply('已經幫您從活動名單中移除');
   } catch (e) {
     event.reply('好像出錯了....誰快來修好我');
-    console.error('leace activity error', e);
+    console.error('leave activity error', e);
   }
 }
 
