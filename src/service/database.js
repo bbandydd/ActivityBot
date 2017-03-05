@@ -22,7 +22,7 @@ const Activity = mongoose.model('Activity', {
   userList: Array,
 });
 
-const Chat = mongoose.modal('Chat', {
+const Chat = mongoose.model('Chat', {
   userId: String,
   intentJsonStr: mongoose.Schema.Types.Mixed,
 });
