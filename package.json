@@ -8,7 +8,7 @@
     "start": "babel-node ./src/serverIndex.js --watch",
     "predev-eslint": "npm run lint",
     "dev-eslint": "babel-node ./src/serverIndex.js",
-    "dev":  "nodemon --exec npm run dev-eslint", 
+    "dev": "nodemon --exec npm run dev-eslint",
     "dev-no-lint": "nodemon --exec babel-node ./src/serverIndex.js",
     "lint": "eslint src/"
   },
@@ -25,6 +25,8 @@
     "express": "^4.14.1",
     "linebot": "^1.2.1",
     "moment": "^2.17.1",
+    "mongodb": "^2.2.24",
+    "mongoose": "^4.8.5",
     "nedb-promise": "^2.0.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1"
