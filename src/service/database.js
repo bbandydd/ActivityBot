@@ -1,21 +1,34 @@
-const Datastore = require('nedb-promise');
+const mongoose = require('mongoose');
 
-const db = new Datastore();
-const defaultParameter = {
-  autoload: true,
-  timestampData: true,
+const dbURI = process.env.MONGODB_URI || 'mongodb://localhost/linebot';
+
+mongoose.Promise = global.Promise;
+mongoose.connect(dbURI);
+
+
+const User = mongoose.model('User', {
+  userId: String,
+  paymentRecord: Array,
+  isPresident: Boolean,
+});
+
+const Activity = mongoose.model('Activity', {
+  location: String,
+  startTime: String,
+  endTime: String,
+  date: Date,
+  creatorId: String,
+  dueTime: Date,
+  userList: Array,
+});
+
+const Chat = mongoose.modal('Chat', {
+  userId: String,
+  intentJsonStr: mongoose.Schema.Types.Mixed,
+});
+
+module.exports = {
+  User,
+  Activity,
+  Chat,
 };
-db.users = new Datastore({
-  filename: 'database/users.db',
-  ...defaultParameter,
-});
-db.activities = new Datastore({
-  filename: 'database/activities.db',
-  ...defaultParameter,
-});
-db.chats = new Datastore({
-  filename: 'database/chats.db',
-  ...defaultParameter,
-});
-
-module.exports = db;
