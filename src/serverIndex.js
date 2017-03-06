@@ -4,7 +4,7 @@ const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
-const saveChats = require('./service/savechat.js');
+// const saveChats = require('./service/savechat.js');
 
 // check env
 try {
@@ -28,7 +28,7 @@ async function MessageHandler(event) {
   try {
     const result = await luis.getIntent(event.message.text);
     // save chat record first, then into intentHandler
-    saveChats(this.db, event, result);
+    // saveChats(this.db, event, result);
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);

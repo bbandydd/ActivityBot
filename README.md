@@ -44,14 +44,20 @@ npm run dev
 
 ### 開發
 #### 使用資料庫
-- 目前使用[nedb](https://github.com/louischatriot/nedb)。
-- 使用的連接套件為 nedb-promise，可直接使用async、await功能。
+- 目前使用[mongodb](https://www.mongodb.com/)。
+- 使用的連接套件為 mogoose[http://mongoosejs.com/docs/guide.html]。
 
 #### 資料表
 ```
-db.users
-db.activities
-db.chats
+linebot.users
+linebot.activities
+linebot.chats
+```
+
+#### mongoose + async
+- mongoose提供exec()，可回傳promise，搭配await使用。 
+```
+const user = await this.db.User.findOne({ userId: event.source.userId }).exec();
 ```
 
 ### Heroku 部屬方式
