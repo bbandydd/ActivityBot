@@ -20,6 +20,7 @@ const Activity = mongoose.model('Activity', {
   creatorId: String,
   dueTime: Date,
   userList: Array,
+  createTime: Date,
 });
 
 const Chat = mongoose.model('Chat', {

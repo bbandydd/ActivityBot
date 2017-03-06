@@ -1,3 +1,4 @@
+const moment = require('moment');
 // LUIS 回傳的日期格式有時候會很奇怪 XXXX-03-01 所以我要把它正規化
 const parseDate = require('../service/parseDate.js');
 
@@ -11,19 +12,24 @@ async function createActivity(event, luisResult) {
     event.reply('請輸入日期！');
   } else {
     try {
-      const user = await this.db.users.findOne({ userId: event.source.userId });
+      const entity = {
+        location: luisResult.entityObject.location,
+        startTime: luisResult.entityObject['activityTime::activityStartTime'],
+        endTime: luisResult.entityObject['activityTime::activityEndTime'],
+        date: parseDate(luisResult.entityObject['builtin.datetime.date']),
+        user: event.source.userId,
+        userList: [],
+        dueTime: moment().add(1, 'days').format('YYYY-MM-DD hh:mm:ss'),
+        createTime: moment().format('YYYY-MM-DD hh:mm:ss'),
+      };
+
+      const user = await this.db.User.findOne({ userId: event.source.userId }).exec();
+      if (!user) {
+        event.reply('查無使用者！');
+        return;
+      }
       if (user.isPresident) {
-        const entity = {
-          location: luisResult.entityObject.location,
-          startTime: luisResult.entityObject['activityTime::activityStartTime'],
-          endTime: luisResult.entityObject['activityTime::activityEndTime'],
-          date: parseDate(luisResult.entityObject['builtin.datetime.date']),
-          user: user.userId,
-          userList: [],
-          dueTime: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-        };
-        const response = await this.db.activities.insert(entity);
-        event.reply(response.error ? '活動建立失敗！' : '活動建立成功！');
+        this.db.Activity(entity).save(error => event.reply(error ? '活動建立失敗！' : '活動建立成功！'));
       } else {
         event.reply('只有社長可以建立活動喔！');
       }
