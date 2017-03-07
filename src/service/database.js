@@ -1,32 +1,47 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
 const dbURI = process.env.MONGODB_URI || 'mongodb://localhost/linebot';
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbURI);
 
+const userSchema = new Schema(
+  {
+    userId: String,
+    paymentRecord: Array,
+    isPresident: Boolean,
+  }, {
+    timestamps: true,
+  },
+);
 
-const User = mongoose.model('User', {
-  userId: String,
-  paymentRecord: Array,
-  isPresident: Boolean,
-});
+const activitySchema = new Schema(
+  {
+    location: String,
+    startTime: String,
+    endTime: String,
+    date: Date,
+    creatorId: String,
+    dueTime: Date,
+    userList: Array,
+  }, {
+    timestamps: true,
+  },
+);
 
-const Activity = mongoose.model('Activity', {
-  location: String,
-  startTime: String,
-  endTime: String,
-  date: Date,
-  creatorId: String,
-  dueTime: Date,
-  userList: Array,
-  createTime: Date,
-});
+const chatSchema = new Schema(
+  {
+    userId: String,
+    intentJsonStr: mongoose.Schema.Types.Mixed,
+  }, {
+    timestamps: true,
+  },
+);
 
-const Chat = mongoose.model('Chat', {
-  userId: String,
-  intentJsonStr: mongoose.Schema.Types.Mixed,
-});
+const User = mongoose.model('User', userSchema);
+const Activity = mongoose.model('Activity', activitySchema);
+const Chat = mongoose.model('Chat', chatSchema);
 
 module.exports = {
   User,
