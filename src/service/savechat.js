@@ -5,14 +5,14 @@ async function saveChats(db, event, result) {
     intentJsonStr: JSON.stringify(result),
   };
   try {
-    const userCount = await db.users.count({ userId });
-    if (userCount === 0) {
+    const userCount = await db.User.find({ userId });
+    if (userCount.length === 0) {
       const user = {
         userId,
         paymentRecord: [],
         isPresident: false,
       };
-      await db.users.insert(user);
+      await db.User(user).save();
     }
   } catch (e) {
     console.error('saveChats count user error', e);
@@ -20,7 +20,7 @@ async function saveChats(db, event, result) {
 
   // insert chat records
   try {
-    await db.chats.insert(chats);
+    await db.Chat(chats).save();
   } catch (e) {
     console.error('saveChats insert chats error', e);
   }
