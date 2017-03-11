@@ -10,10 +10,11 @@ function getPosibleNumbers(array) {
 
 async function joinActivity(event, result) {
   const { topScoringIntent, entities } = result;
-  if (topScoringIntent.score < 0.7) {
-    event.reply('你是不是想要參加活動，請告訴我更多');
-    return;
-  }
+  console.log(topScoringIntent, entities);
+  // if (topScoringIntent.score < 0.7) {
+  //   event.reply('你是不是想要參加活動，請告訴我更多');
+  //   return;
+  // }
   try {
     const queryset = { location: '鼓岩國小' };
     const activityList = await this.db.activities
