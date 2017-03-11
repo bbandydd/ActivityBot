@@ -4,13 +4,13 @@ const express = require('express');
 const checkEnv = require('check-env');
 const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
-// const saveChats = require('./service/savechat.js');
+const saveChats = require('./service/savechat.js');
 
 // check env
 try {
   checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY', 'BOT_NAME']);
 } catch (e) {
-  console.log('缺少環境變數', e);
+  console.info('缺少環境變數', e);
   process.exit();
 }
 
@@ -28,7 +28,7 @@ async function MessageHandler(event) {
   try {
     const result = await luis.getIntent(event.message.text);
     // save chat record first, then into intentHandler
-    // saveChats(this.db, event, result);
+    saveChats(this.db, event, result);
     intentHandlers[result.topScoringIntent.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
@@ -73,5 +73,5 @@ const linebotParser = bot.parser();
 // start express server and use line bot parser
 app.post('/linewebhook', linebotParser);
 app.listen(process.env.PORT || 5000, () => {
-  console.log('server start success');
+  console.info('server start success');
 });
