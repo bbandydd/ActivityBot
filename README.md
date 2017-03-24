@@ -8,7 +8,7 @@
 export LINE_CHANNEL_SECRET="0f65b655xxxxxxabf6c"
 export LINE_CHANNEL_TOKEN="KlXdEn5+sFt3aF1pRdxxxxxxyGoRh+8N9xdHCImK03x2n2vxoQ3J9OIthrSqYNF4BqIvNdhW3XkiGwdB04t89/1O/w1cDnyilFU="
 export LINE_CHANNEL_ID="1495270559"
-export LUIS_API_URL="https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/fba8ab1a-6a5c-4d01-9746-b7ede1712730?subscription-key=5f997f5dca334e9ebf60ec23bf6b4d87"
+export WIT_TOKEN="123456789"
 export PRESIDENT_KEY="GTR#673279834@@"
 export BOT_NAME="WiWi"
 ```

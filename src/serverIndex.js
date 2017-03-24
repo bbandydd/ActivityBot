@@ -34,9 +34,7 @@ async function MessageHandler(event) {
     const messageText = event.message.text;
     const result = await witService(messageText);
     // save chat record first, then into intentHandler
-    // saveChats(this.db, event, result);
-    console.log(result)
-    console.log(result.entities.intent + '---------------------');
+    // saveChats(this.db, event, result)
 
     intentHandlers[result.entities.intent].call(this, event, result);
   } catch (e) {
