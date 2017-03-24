@@ -126,31 +126,32 @@ const user = await this.db.User.findOne({ userId: event.source.userId }).exec();
 
 **補充說明：目前的npm run dev 有包含 npm run lint 的指令，必須通過lint測試才可以順利啟動server**
 
-# LUIS intent 以及 entity 解說
+# [Wit.ai](https://wit.ai/) intent 以及 entity 解說
 
-### intent
+### intent 還沒打勾就是我還沒有做好
 
-1. registeredPresident (註冊社長)
-2. createActivity (社長建立活動)
-3. joinActivity (社員加入活動)
-4. leaveActivity (社員活動請假)
-5. listUsers (列出活動對象)
+1. [ ] registeredPresident (註冊社長)
+2. [ ] createActivity (社長建立活動)
+3. [x] joinActivity (社員加入活動)
+4. [x] leaveActivity (社員活動請假)
+5. [x] listUsers (列出活動對象)
 
 ### entity
 
-1. location (活動進行的地點)
-2. activityTime(活動進行的時間)
- - activityStartTime (活動開始時間)
- - activityEndTime (活動結束時間)
+1. [x] number(參加人數)
 
 ### 範例
 
+> wiwi 有誰要參加活動？
 ```
-星期三建立活動時間18:00~20:00地點大魯格草衙道
-
-intent: createActivity
-entity:
-    location: 大魯格草衙道
-    activityStartTime: 18:00
-    activityEndTime: 20:00
+ {
+     "msg_id": "a3978adc-1246-4236-8d30-10577a6f38ea",
+     "_text": "wiwi 有誰要參加活動？",
+     "entities": {
+         "intent": [{
+             "confidence": 0.9040730105760665,
+             "value": "listUsers"
+         }]
+     }
+ }
 ```
