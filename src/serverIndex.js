@@ -2,13 +2,16 @@
 const LineBot = require('./service/linebot');
 const express = require('express');
 const checkEnv = require('check-env');
-const luis = require('./service/luis.js');
+
+// const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
-const saveChats = require('./service/savechat.js');
+// const saveChats = require('./service/savechat.js');
+const HelpHandler = require('./modules/help.js');
+const witService = require('./service/wit.js');
 
 // check env
 try {
-  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'LUIS_API_URL', 'PRESIDENT_KEY', 'BOT_NAME']);
+  checkEnv(['LINE_CHANNEL_SECRET', 'LINE_CHANNEL_TOKEN', 'LINE_CHANNEL_ID', 'WIT_TOKEN', 'PRESIDENT_KEY', 'BOT_NAME']);
 } catch (e) {
   console.info('缺少環境變數', e);
   process.exit();
@@ -24,67 +27,20 @@ const bot = new LineBot({
   channelAccessToken: process.env.LINE_CHANNEL_TOKEN,
 });
 
+
+
 async function MessageHandler(event) {
   try {
-    const result = await luis.getIntent(event.message.text);
+    const messageText = event.message.text;
+    const result = await witService(messageText);
     // save chat record first, then into intentHandler
-    saveChats(this.db, event, result);
-    intentHandlers[result.topScoringIntent.intent].call(this, event, result);
+    // saveChats(this.db, event, result);
+    console.log(result)
+    console.log(result.entities.intent + '---------------------');
+
+    intentHandlers[result.entities.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);
-  }
-}
-
-function helpTemplate(helpMsg) {
-  return {
-    text: helpMsg,
-    actions: [
-      {
-        type: 'message',
-        label: ' ',
-        text: ' ',
-      },
-    ],
-  };
-}
-
-async function HelpHandler(event) {
-  // text 有字數限制，沒有圖片或標題可打120 characters
-  const joinHelp = `
-  🙋 wiwi 小幫手 (◕‿◕✿)
-  📘 報名活動
-    💡 參加活動請打："我要參加"
-    💡 帶小伙拜一起參加請打："我要參加 n位" (n是阿拉伯數字)
-  `;
-  const leaveHelp = `
-  🙋 wiwi 小幫手 (◕‿◕✿)
-    📘 請假
-    💡 請假請打："我要請假"
-  `;
-  const userHelp = `
-  🙋 wiwi 小幫手 (◕‿◕✿)
-  📘 列出活動參加者
-    💡 列出活動參加者請打： "列出活動參加者"
-  `;
-  try {
-    event.reply({
-      type: 'template',
-      altText: 'wiwi help',
-      template: {
-        type: 'carousel',
-        columns: [
-          helpTemplate(joinHelp),
-          helpTemplate(leaveHelp),
-          helpTemplate(userHelp),
-        ],
-      },
-    });
-  } catch (e) {
-    console.log(e);
-    event.reply({
-      type: 'text',
-      text: '我壞了，誰來修好我',
-    });
   }
 }
 
