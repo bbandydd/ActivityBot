@@ -5,7 +5,7 @@ const checkEnv = require('check-env');
 
 // const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
-// const saveChats = require('./service/savechat.js');
+const saveUserData = require('./service/saveUserData');
 const HelpHandler = require('./modules/help.js');
 const witService = require('./service/wit.js');
 
@@ -33,9 +33,8 @@ async function MessageHandler(event) {
   try {
     const messageText = event.message.text;
     const result = await witService(messageText);
-    // save chat record first, then into intentHandler
-    // saveChats(this.db, event, result)
-
+    // save user data first, then into intentHandler
+    await saveUserData(this.db, event);
     intentHandlers[result.entities.intent].call(this, event, result);
   } catch (e) {
     console.error('getMessage error', e);

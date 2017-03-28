@@ -130,7 +130,7 @@ const user = await this.db.User.findOne({ userId: event.source.userId }).exec();
 
 ### intent 還沒打勾就是我還沒有做好
 
-1. [ ] registeredPresident (註冊社長)
+1. [x] registeredPresident (註冊社長)
 2. [ ] createActivity (社長建立活動)
 3. [x] joinActivity (社員加入活動)
 4. [x] leaveActivity (社員活動請假)
