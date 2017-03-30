@@ -2,6 +2,8 @@
 const LineBot = require('./service/linebot');
 const express = require('express');
 const checkEnv = require('check-env');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(express);
 
 // const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
@@ -61,20 +63,20 @@ async function getMessage(event) {
 
 bot.on('message', getMessage);
 
-// bot.on('message', function (event) { });
-// bot.on('follow', function (event) { });
-// bot.on('unfollow', function (event) { });
-
-// bot.on('leave', function (event) { });
-// bot.on('postback', function (event) { });
-// bot.on('beacon', function (event) { });x
+// set session and session store in mongodb
+app.use(session({
+  secret: 'heppy@#$Y&G%',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
+  store: new MongoStore({ url: process.env.MONGODB_URI || 'mongodb://localhost/linebot' }),
+}));
 
 // static web
 app.use('/', express.static(`${__dirname}/public`));
 
 // generate line bot middleware to express server
 const linebotParser = bot.parser();
-
 // start express server and use line bot parser
 app.post('/linewebhook', linebotParser);
 app.listen(process.env.PORT || 5000, () => {
