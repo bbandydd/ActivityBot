@@ -3,7 +3,7 @@ const LineBot = require('./service/linebot');
 const express = require('express');
 const checkEnv = require('check-env');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(express);
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 // const luis = require('./service/luis.js');
 const intentHandlers = require('./modules/index.js');
@@ -68,8 +68,7 @@ app.use(session({
   secret: 'heppy@#$Y&G%',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true },
-  store: new MongoStore({ url: process.env.MONGODB_URI || 'mongodb://localhost/linebot' }),
+  store: new MongoDBStore({ url: process.env.MONGODB_URI || 'mongodb://localhost/linebot' }),
 }));
 
 // static web
